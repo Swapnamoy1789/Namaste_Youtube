@@ -84,3 +84,5 @@ Ways to handle live data:
 
 2. Api polling- where the ui and server connection is done instantly but data flow takes place in intervals where the ui polls the data frpm the server after a certain point of time interval. and only uni directional data flow is allowed. Examples- Gmail,Cricbuzz(live cricket commentery is live but we can see that it does call the api after 25 secs as its logical that one ball should take 25 secs to happen)
 
+
+# Namaste_Youtube
