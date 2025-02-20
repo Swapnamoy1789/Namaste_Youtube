@@ -1,11 +1,24 @@
 import React, { useRef } from "react";
-import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+
+const CATEGORY_IDS = {
+  Movies: "1",
+  Music: "10",
+  Gaming: "20",
+  Sports: "17",
+  Technology: "28",
+  Education: "27",
+  Comedy: "23",
+  News: "25",
+  Health: "26",
+  Travel: "19",
+  Lifestyle: "22",
+};
 
 const ButtonList = () => {
-  // Reference for the scrollable container
   const scrollRef = useRef(null);
+  const navigate = useNavigate();
 
-  // Scroll handlers
   const scrollLeft = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
@@ -18,52 +31,58 @@ const ButtonList = () => {
     }
   };
 
-  // List of button names
   const buttonNames = [
-    "All",
     "Movies",
-    "Podcasts",
-    "Premier League",
-    "News",
     "Music",
-    "Live",
-    "Trending",
     "Gaming",
+    "Sports",
     "Technology",
     "Education",
     "Comedy",
-    "Lifestyle",
-    "Fashion",
+    "News",
     "Health",
     "Travel",
-    "Sports",
+    "Lifestyle",
   ];
+
+  const handleCategoryClick = (category) => {
+    if (category === "All") {
+      navigate("/");
+    } else {
+      navigate(`/category/${category}`);
+    }
+  };
 
   return (
     <div className="relative w-full max-w-screen overflow-hidden z-10">
-      {/* Left Arrow */}
+      {/* Left Scroll Button (Hidden on Small Screens) */}
       <button
         onClick={scrollLeft}
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 z-20 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md"
+        className="hidden md:block absolute left-2 top-1/2 transform -translate-y-1/2 z-20 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md"
       >
         &#8249;
       </button>
 
-      {/* Scrollable Container */}
       <div
         ref={scrollRef}
-        className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide space-x-4 px-12"
-        style={{ zIndex: 10 }}
+        className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide space-x-4 px-4 sm:px-12 
+                   snap-x snap-mandatory"
       >
         {buttonNames.map((name, index) => (
-          <Button key={index} name={name} />
+          <button
+            key={index}
+            onClick={() => handleCategoryClick(name)}
+            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg snap-center"
+          >
+            {name}
+          </button>
         ))}
       </div>
 
-      {/* Right Arrow */}
+      {/* Right Scroll Button (Hidden on Small Screens) */}
       <button
         onClick={scrollRight}
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 z-20 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md"
+        className="hidden md:block absolute right-2 top-1/2 transform -translate-y-1/2 z-20 p-2 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md"
       >
         &#8250;
       </button>
